@@ -1,0 +1,11 @@
+# Add environmental variables to this file in yaml format:
+#
+# development: 
+#   FOO: "bar"
+#
+# production:
+#   BAR: "foo"
+#
+# BOO: "far"
+#
+# Anything outside of an environment will be loaded no matter what Rails environment you're in.

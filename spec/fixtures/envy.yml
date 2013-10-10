@@ -1,0 +1,10 @@
+development:
+  KEY1: 'key1-development'
+  KEY3: 'key3-development' 
+  
+production:
+  KEY1: 'key1-production'
+  KEY4: 'key4-production'
+
+KEY1: 'key1-global'
+KEY2: 'key2-global'
