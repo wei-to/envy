@@ -1,5 +1,6 @@
 require 'envy/railtie'
 require 'envy/version'
+require 'fog'
 require 'hashie'
 require 'yaml'
 
