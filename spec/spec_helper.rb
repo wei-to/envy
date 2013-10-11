@@ -6,6 +6,9 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'envy'
 require 'rspec'
 require 'rspec/autorun'
+require 'fog'
+
+Fog.mock!
 
 RSpec.configure do |config|
   config.color_enabled = true
