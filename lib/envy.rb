@@ -46,7 +46,7 @@ module Envy
       begin
         YAML.load(credentials)
       rescue Exception => e
-        raise Envy::ConfigurationError, 'Malformed configuration in envy.yml.'
+        raise Envy::ConfigurationError, 'Malformed configuration in fog.yml.'
       end
     else
       {}
@@ -82,7 +82,9 @@ module Envy
   end
   
   def download_vars
-    fog_root.files.last
+    file = fog_root.files.last
+    File.open(vars_file, 'w') {|f| f.write(file.body)}
+    file
   end
   
   class ConfigurationError < StandardError; end

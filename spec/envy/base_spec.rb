@@ -124,11 +124,25 @@ describe Envy do
       Envy.stub(:vars_file) { File.expand_path('../../fixtures/envy.old.yml', __FILE__) }
       @upload1 = Envy.upload_vars
       Envy.stub(:vars_file) { File.expand_path('../../fixtures/envy.yml', __FILE__) }
-      @upload2 = Envy.upload_vars
-      @fog_file = Envy.download_vars
+      @upload2 = Envy.upload_vars      
     end
     it 'downloads the most-recent variables' do
-      expect(@fog_file.body).to eq(@upload2.body)
+      fog_file = Envy.download_vars
+      expect(fog_file.body).to eq(@upload2.body)
+    end
+    it "generates envy.yml if it doesn't exist" do
+      file = File.expand_path("/tmp/envy.#{Time.now.to_f}.yml", __FILE__)
+      expect(File.exist?(file)).to be_false
+      Envy.stub(:vars_file) { file }
+      Envy.download_vars
+      expect(File.exist?(file)).to be_true
+    end
+    it 'updates the local envy.yml' do
+      file = File.expand_path('../../fixtures/envy.downloaded.yml', __FILE__)
+      File.open(file, 'w') {}
+      Envy.stub(:vars_file) { file }
+      download = Envy.download_vars
+      expect(File.read(Envy.vars_file)).to eq(download.body)
     end
   end
   
