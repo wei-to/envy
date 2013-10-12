@@ -10,10 +10,18 @@ describe Envy do
     
   describe '.vars_yaml' do    
     context 'when file exists' do
-      it 'loads YAML' do
-        expect(Envy.vars_yaml).to be_a(Hash)
-        expect(Envy.vars_yaml).to include('development', 'production', 'KEY1')
+      context 'with content' do
+        it 'loads YAML' do
+          expect(Envy.vars_yaml).to be_a(Hash)
+          expect(Envy.vars_yaml).to include('development', 'production', 'KEY1')
+        end
       end
+      context 'with no content' do
+        it 'returns an emtpy hash' do
+          Envy.stub(:vars_file) { File.expand_path('../../fixtures/envy.empty.yml', __FILE__) }
+          expect(Envy.vars_yaml).to eq({})
+        end
+      end      
     end    
     context 'when file does not exist' do
       it 'returns an empty hash' do        

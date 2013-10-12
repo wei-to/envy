@@ -21,7 +21,12 @@ module Envy
   end
   
   def vars_yaml
-    File.exist?(vars_file) ? YAML.load(File.read(vars_file)) : {}
+    if File.exist?(vars_file)
+      body = File.read(vars_file)
+      body.empty? ? {} : YAML.load(body)      
+    else
+      {}
+    end
   end
   
   def global_vars
